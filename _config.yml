@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: chffy's blog
+title: chffy
 subtitle:
 description:
 author: chffy
-language: zh-Hans
+language: en #zh-Hans
 timezone:
 
 # URL
