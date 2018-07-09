@@ -1,7 +1,12 @@
 ---
 title: boost/mutex笔记
 date: 2018-04-07 18:15:14
-tags: thread_tool, mutex
+tags: 
+ - thread_tool
+ - mutex
+categories:
+ - programming languages
+ - C++
 ---
 # 说明
 
