@@ -30,3 +30,4 @@ model下载：https://www.npmjs.com/search?q=%20live2d-widget-model
 
 # 博客们：
 - http://yuchen-lea.github.io/categories/hexo/
+- https://www.jianshu.com/p/f054333ac9e6
