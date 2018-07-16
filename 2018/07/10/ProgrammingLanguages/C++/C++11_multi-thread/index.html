@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="thread tool,c++11," />
 
 
 
@@ -103,13 +103,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="chffy">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="DescriptionThis blog introduce some multi-thread tools of C++11.">
+<meta name="keywords" content="thread tool,c++11">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11 multi-thread">
+<meta property="og:url" content="http://yoursite.com/2018/07/10/ProgrammingLanguages/C++/C++11_multi-thread/index.html">
 <meta property="og:site_name" content="chffy">
+<meta property="og:description" content="DescriptionThis blog introduce some multi-thread tools of C++11.">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-16T09:35:25.776Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chffy">
+<meta name="twitter:title" content="C++11 multi-thread">
+<meta name="twitter:description" content="DescriptionThis blog introduce some multi-thread tools of C++11.">
 
 
 
@@ -138,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/10/ProgrammingLanguages/C++/C++11_multi-thread/"/>
 
 
 
 
 
-  <title>chffy</title>
+  <title>C++11 multi-thread | chffy</title>
   
 
 
@@ -169,9 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -294,9 +297,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -326,9 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/10/ProgrammingLanguages/C++/C++11_multi-thread/" itemprop="url">C++11 multi-thread</a></h1>
+          <h1 class="post-title" itemprop="name headline">C++11 multi-thread</h1>
         
 
         <div class="post-meta">
@@ -440,16 +441,17 @@
       
 
       
-        
-          <h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><p>This blog introduce some multi-thread tools of C++11.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/10/ProgrammingLanguages/C++/C++11_multi-thread/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><p>This blog introduce some multi-thread tools of C++11.</p>
+<a id="more"></a>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p><strong>lock tools</strong>: mutex, unique_lock, lock_guard<br><strong>thread tools</strong>: thread, future, package_task<br><strong>thread switching tools</strong>: condition_variable<br><strong>function tools</strong>: lambda, bind</p>
+<p>In multi-thread program, using <strong>lock tools</strong> to lock code, using <strong>thread tools</strong> to alloc/manage thread, using <strong>switching tools</strong> to achieve multi-thread switch, using <strong>function tools</strong> can simply code.</p>
+<h1 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h1><p><strong>format</strong>： [capture list] (parameter list) -&gt; return type { function body }<br><strong>example</strong>:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> exparam = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">auto</span> func = [exparam](<span class="keyword">double</span> a, <span class="keyword">double</span> b) -&gt; <span class="keyword">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b + exparam;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; func(<span class="number">1</span>, <span class="number">2.1</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; <span class="comment">// output will be 6.</span></span><br></pre></td></tr></table></figure></p>
+<p>In some situation, we can simply lambda like:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> func = [] &#123; <span class="keyword">return</span> <span class="number">3</span>; &#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="mutex-and-Lock"><a href="#mutex-and-Lock" class="headerlink" title="mutex and Lock"></a>mutex and Lock</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>std::mutex</strong> is synchronization primitive to protect data from multi-thread access. It’s base method is lock and unlock, only one thread can own a mutex object in the same time.<br>std::lock_guard, 构造参数为mutex，在构造的时候调用lock，析构的时候unlock。<br>std::unique_lock，构造参数为mutex，和lock_unique的主要区别是：在拥有lock_guard的功能基础上，可以自己控制lock/unlock，且可以和其他unique_lock对象交换状态。</p>
+<h1 id="condition-variable"><a href="#condition-variable" class="headerlink" title="condition_variable"></a>condition_variable</h1><p>include &lt;condition_variable&gt;<br>std::condition_variable, 同步原语, 有方法：notify_one, notify_all, wait, wait_for, wait_util<br>wait相关函数，需要传入一个unique_lock，在wait的过程中暂时释放锁，等有notify事件产生，再取回锁的使用权。</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>include <thread><br>std::thread, 构造参数为func, f_param1, f_param2, …, 其中func是函数，f_param是函数需要的参数。</thread></p>
+
       
     </div>
     
@@ -464,386 +466,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/Blog/Hexo/hexo帮助文档/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chffy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/sola.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chffy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/09/Blog/Hexo/hexo帮助文档/" itemprop="url">hexo帮助文档</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-09T15:35:12+08:00">
-                2018-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blog/" itemprop="url" rel="index">
-                    <span itemprop="name">Blog</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blog/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/thread-tool/" rel="tag"># thread tool</a>
           
-
+            <a href="/tags/c-11/" rel="tag"># c++11</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/09/Blog/Hexo/hexo帮助文档/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/07/09/Blog/Hexo/hexo帮助文档/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article</span>
-                
-                <span title="Words count in article">
-                  149
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>本文主要是记录一下Hexo的一些功能</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/09/Blog/Hexo/hexo帮助文档/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/09/Blog/Hexo/hexo帮助文档/" rel="next" title="hexo帮助文档">
+                <i class="fa fa-chevron-left"></i> hexo帮助文档
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/07/ProgrammingLanguages/C++/boost-mutex笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chffy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/sola.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chffy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/07/ProgrammingLanguages/C++/boost-mutex笔记/" itemprop="url">boost/mutex笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-07T18:15:14+08:00">
-                2018-04-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Languages/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Languages</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Languages/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/07/ProgrammingLanguages/C++/boost-mutex笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/07/ProgrammingLanguages/C++/boost-mutex笔记/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article</span>
-                
-                <span title="Words count in article">
-                  331
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>本文主要记录一下boost中mutex的特点。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/07/ProgrammingLanguages/C++/boost-mutex笔记/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -853,10 +507,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -864,6 +519,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/07/10/ProgrammingLanguages/C++/C++11_multi-thread/"
+           data-title="C++11 multi-thread" data-url="http://yoursite.com/2018/07/10/ProgrammingLanguages/C++/C++11_multi-thread/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -884,8 +547,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/sola.jpg"
@@ -960,6 +632,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Description"><span class="nav-number">1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">2.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lambda"><span class="nav-number">3.</span> <span class="nav-text">Lambda</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mutex-and-Lock"><span class="nav-number">4.</span> <span class="nav-text">mutex and Lock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#condition-variable"><span class="nav-number">5.</span> <span class="nav-text">condition_variable</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-number">6.</span> <span class="nav-text">线程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1073,10 +761,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
@@ -1137,26 +825,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
